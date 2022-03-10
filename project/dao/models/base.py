@@ -1,4 +1,4 @@
-from coursework_3_source.project.setup_db import db
+from project.setup_db import db
 
 
 class BaseMixin(object):

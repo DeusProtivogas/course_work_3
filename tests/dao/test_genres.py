@@ -9,14 +9,14 @@ class TestGenreDAO:
     def dao(self, db):
         self.dao = GenreDAO(db.session)
 
-    @pytest.fixture
+    @pytest.fixture(autouse=True)
     def genre_1(self, db):
         g = Genre(name="Боевик")
         db.session.add(g)
         db.session.commit()
         return g
 
-    @pytest.fixture
+    @pytest.fixture(autouse=True)
     def genre_2(self, db):
         g = Genre(name="Комедия")
         db.session.add(g)
@@ -27,7 +27,7 @@ class TestGenreDAO:
         assert self.dao.get_by_id(genre_1.id) == genre_1
 
     def test_get_genre_by_id_not_found(self):
-        assert self.dao.get_by_id(1) is None
+        assert self.dao.get_by_id(10000) is None
 
     def test_get_all_genres(self, genre_1, genre_2):
         assert self.dao.get_all() == [genre_1, genre_2]
