@@ -1,4 +1,5 @@
 from flask_restx import abort, Namespace, Resource
+from flask import request
 
 from project.exceptions import ItemNotFound
 from project.services import GenresService
@@ -12,7 +13,19 @@ class GenresView(Resource):
     @genres_ns.response(200, "OK")
     def get(self):
         """Get all genres"""
-        return GenresService(db.session).get_all_genres()
+
+        all_genres = GenresService(db.session).get_all_genres()
+
+        # print(f"HERE AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA         {type(all_genres)}")
+
+        if request.values.get("page"):
+            page = int(request.values.get("page"))
+            all_genres = all_genres[12 * (page - 1): 12 * page]
+        # if request.values.get("status") == "new":
+        #     sorted(all_genres)
+
+        return all_genres
+        # return GenresService(db.session).get_all_genres()
 
 
 @genres_ns.route("/<int:genre_id>")
