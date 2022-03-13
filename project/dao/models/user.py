@@ -9,7 +9,8 @@ class User(BaseMixin, db.Model):
     password = db.Column(db.String, nullable=False)
     name = db.Column(db.String(255), default="Ivan")
     surname = db.Column(db.String(255), default="Ivanov")
-    # favorite_genre
+    favorite_genre = db.Column(db.Integer, db.ForeignKey("genres.id"))
+    genre = db.relationship("Genre")
 
     def __repr__(self):
-        return f"<User {self.name.title()} {self.surname.title()} {self.password.title()} >"
+        return f"<User {self.name.title()} {self.surname.title()}>"

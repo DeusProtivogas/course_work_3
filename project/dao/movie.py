@@ -15,22 +15,14 @@ class MovieDAO:
     #     return self._db_session.query(Genre).all()
 
     def get_all(self, filters):
-        # А еще можно сделать так, вместо всех методов get_by_*
         t = self._db_session.query(Movie)
         if "status" in filters and filters.get("status") is not None:
-            # print(filters.get("status"))
             if filters.get("status") == "new":
                 t = t.order_by(desc(Movie.year))
         if "page" in filters and filters.get("page") is not None:
-            # print(filters.get("page"))
             t = t.paginate(page=int(filters.get("page")), per_page=12).items
-            # print(type(t))
             return t
-        #     t = t.filter(Movie.genre_id == filters.get("genre_id"))
-        # if "year" in filters:
-        #     t = t.filter(Movie.year == filters.get("year"))
-        # return t.all()
-        return t.all() # self._db_session.query(Movie).all()
+        return t.all()
 
     def get_by_director_id(self, val):
         return self._db_session.query(Movie).filter(Movie.director_id == val).all()

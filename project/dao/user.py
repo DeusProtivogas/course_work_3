@@ -30,6 +30,17 @@ class UserDAO:
     def update(self, user_d):
         user = self.get_by_id(user_d.get("id"))
         user.name = user_d.get("name")
+        user.surname = user_d.get("surname")
 
         self._db_session.add(user)
         self._db_session.commit()
+        return user
+
+
+    def update_password(self, user_d):
+        user = self.get_by_id(user_d.get("id"))
+        user.password = user_d.get("password2")
+
+        self._db_session.add(user)
+        self._db_session.commit()
+        return user

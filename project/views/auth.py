@@ -15,9 +15,8 @@ class RegisterView(Resource):
         if not request.json:
             abort(400, "Bad request")
         new_user_data = request.json
-        print(new_user_data)
-        UsersService(db.session).create(new_user_data)
-        return f"Created user"
+        user = UsersService(db.session).create(new_user_data)
+        return f"Created user: {user.name} {user.surname}"
 
 
 @auth_ns.route("/login")
@@ -37,7 +36,6 @@ class LoginView(Resource):
         tokens = auth_service.get_tokens(user_data)
 
 
-        print(f"Tokens {tokens}")
 
         return jsonify(tokens)
 
@@ -46,7 +44,6 @@ class LoginView(Resource):
 
         tokens = auth_service.get_refresh_tokens(data)
 
-        print(f"Tokens regreshed: {tokens}")
 
         return tokens
 
