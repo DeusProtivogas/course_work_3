@@ -56,10 +56,6 @@ def compare_password(pass_hash, password) -> bool:
         )
     )
 
-# def get_refresh_tokens(refresh_token):
-#     data = jwt.decode(jwt=refresh_token, key=BaseConfig.SECRET_KEY, algorithms=[BaseConfig.JWT_ALGORITHM] )
-
-
 
 def jwt_decode(token):
     try:

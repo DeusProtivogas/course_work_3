@@ -26,13 +26,6 @@ class LoginView(Resource):
             abort(400, "Bad request")
         user_data = request.json
 
-        # email = user_data.get("email")
-        # password = user_data.get("password")
-        #
-        # if None in [email, password]:
-        #     abort(400, "")
-
-        # tokens = auth_service.get_tokens(email, password)
         tokens = auth_service.get_tokens(user_data)
 
 
