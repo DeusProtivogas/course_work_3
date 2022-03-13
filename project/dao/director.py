@@ -10,8 +10,13 @@ class DirectorDAO:
     def get_by_id(self, pk):
         return self._db_session.query(Director).filter(Director.id == pk).one_or_none()
 
-    def get_all(self):
-        return self._db_session.query(Director).all()
+    def get_all(self, filters):
+        t = self._db_session.query(Director)
+        if "page" in filters and filters.get("page") is not None:
+            t = t.paginate(page=int(filters.get("page")), per_page=12).items
+            return t
+        return t.all()
+
 
     def create(self, director_d):
         ent = Director(**director_d)

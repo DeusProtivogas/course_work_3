@@ -14,12 +14,12 @@ class GenresView(Resource):
     def get(self):
         """Get all genres"""
 
-        all_genres = GenresService(db.session).get_all_genres()
+        page = request.args.get("page")
+        filters = {
+            "page": page,
+        }
 
-        if request.values.get("page"):
-            page = int(request.values.get("page"))
-            all_genres = all_genres[12 * (page - 1): 12 * page]
-
+        all_genres = GenresService(db.session).get_all_genres(filters)
         return all_genres
 
 

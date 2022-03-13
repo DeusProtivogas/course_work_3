@@ -14,14 +14,6 @@ class MoviesView(Resource):
     def get(self):
         """Get all movies"""
 
-
-        # if request.values.get("status") == "new":
-        #     all_movies = sorted(all_movies, key=lambda x: x['year'], reverse=True)
-        #
-        # if request.values.get("page"):
-        #     page = int(request.values.get("page"))
-        #     all_movies = all_movies[12 * (page - 1): 12 * page]
-
         page = request.args.get("page")
         status = request.args.get("status")
 

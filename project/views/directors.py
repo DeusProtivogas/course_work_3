@@ -14,17 +14,12 @@ class DirectorsView(Resource):
     def get(self):
         """Get all directors"""
 
-        all_directors = DirectorsService(db.session).get_all_directors()
+        page = request.args.get("page")
+        filters = {
+            "page": page,
+        }
 
-# TODO: think about using paginate somehow?
-        # if request.values.get("page"):
-        #     page = int(request.values.get("page"))
-        #     all_directors = DirectorsService(db.session).paginate(page=page, per_page=12)
-
-        if request.values.get("page"):
-            page = int(request.values.get("page"))
-            all_directors = all_directors[12 * (page - 1): 12 * page]
-
+        all_directors = DirectorsService(db.session).get_all_directors(filters)
         return all_directors
 
 
