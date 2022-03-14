@@ -16,7 +16,7 @@ class RegisterView(Resource):
             abort(400, "Bad request")
         new_user_data = request.json
         user = UsersService(db.session).create(new_user_data)
-        return f"Created user: {user.name} {user.surname}"
+        return f"Created user: {user.name} {user.surname}", 201
 
 
 @auth_ns.route("/login")

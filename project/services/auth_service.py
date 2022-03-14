@@ -86,3 +86,17 @@ def auth_required(func):
             return func(*args, **kwargs)
         abort(401, "Authorization required")
     return wrapper
+
+def get_user_id(user_tokens):
+
+    access_token = user_tokens.get("Authorization").split("Bearer ")[-1]
+    data = jwt_decode(access_token)
+    print(data)
+    if data:
+        print(data)
+        user_id = data.get("email")
+
+        # user = UsersService(db.session).get_pure_item_by_id(user_id)
+
+        # tokens = get_tokens(data)
+        return user_id

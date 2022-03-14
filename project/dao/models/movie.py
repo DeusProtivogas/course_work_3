@@ -6,7 +6,7 @@ class Movie(BaseMixin, db.Model):
     __tablename__ = "movies"
 
     title = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.Text, nullable=False)
     trailer = db.Column(db.String(255), nullable=False)
     year = db.Column(db.Integer, nullable=False)
     rating = db.Column(db.Float, nullable=False)

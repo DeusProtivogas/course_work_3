@@ -4,6 +4,7 @@ from project.dao import UserDAO
 from project.exceptions import ItemNotFound
 from project.schemas.user import UserSchema
 from project.services.base import BaseService
+# from project.services.auth import get_user_id()
 
 from project.config import BaseConfig # PWD_HASH_SALT, PWD_HASH_ITERATIONS, JWT_SECRET, JWT_ALGORITHM
 
@@ -35,7 +36,7 @@ class UsersService(BaseService):
         user = UserDAO(self._db_session).get_by_email(email)
         if not user:
             raise ItemNotFound
-        return UserSchema(only=("name", "surname", "email")).dumps(user)
+        return UserSchema(only=("name", "surname", "email")).dump(user)
 
     def get_pure_item_by_email(self, email):
         """
